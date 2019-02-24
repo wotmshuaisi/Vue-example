@@ -1,8 +1,9 @@
 <template>
   <ul class="todo-item" v-bind:class="{'is-completed':todo.completed}">
     <li>
-      <input type="checkbox" v-on:change="markComplete()">
+      <input type="checkbox" :checked="todo.completed" v-on:change="markComplete()">
       {{todo.title}}
+      <button @click="$emit('delTodo', todo.id)" class="del">X</button>
     </li>
   </ul>
 </template>
@@ -37,5 +38,6 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   float: right;
+  border: 1px solid gray;
 }
 </style>
