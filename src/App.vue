@@ -1,71 +1,23 @@
 <template>
   <div id="app">
     <Header/>
-    <AddTodo v-on:addTodo="addTodo"/>
-    <Todos v-bind:todos="todos" v-on:delTodo="deleteTodo"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-console */
-
-import Todos from "./components/Todos";
-import AddTodo from "./components/AddTodo";
 import Header from "./components/layout/Header";
-import axios from "axios";
 
 export default {
   name: "app",
   components: {
-    Todos,
-    Header,
-    AddTodo
-  },
-  data() {
-    return {
-      todos: []
-    };
-  },
-  methods: {
-    deleteTodo(id) {
-      axios
-        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then(res => {
-          this.todos = this.todos.filter(todo => todo.id !== id); // reassignment
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    addTodo(todo) {
-      const { title, completed } = todo;
-      axios
-        .post("https://jsonplaceholder.typicode.com/todos", {
-          title,
-          completed
-        })
-        .then(res => {
-          this.todos.push(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  },
-  created() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=8")
-      .then(res => {
-        this.todos = res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    Header
   }
 };
 </script>
 
-<style lang="less">
+
+<style>
 * {
   box-sizing: border-box;
   margin: 0;
